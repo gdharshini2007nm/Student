@@ -1,0 +1,199 @@
+
+<!doctype html>
+<html lang="en">
+<head>
+  <meta charset="utf-8" />
+  <meta name="viewport" content="width=device-width,initial-scale=1" />
+  <title>Profile / Resume</title>
+  <style>
+    :root{
+      --accent:#0b76ef;
+      --muted:#666;
+      --bg:#f6f8fb;
+      --card:#ffffff;
+      --radius:12px;
+      font-family: Inter, "Segoe UI", Roboto, Arial, sans-serif;
+    }
+    body{
+      margin:0;
+      padding:24px;
+      background:linear-gradient(180deg,var(--bg),#fff);
+      display:flex;
+      justify-content:center;
+      min-height:100vh;
+    }
+    .card{
+      background:var(--card);
+      width:100%;
+      max-width:900px;
+      border-radius:var(--radius);
+      box-shadow:0 8px 30px rgba(20,30,50,0.08);
+      display:grid;
+      grid-template-columns:260px 1fr;
+      gap:24px;
+      padding:28px;
+      align-items:start;
+    }
+    /* left column */
+    .left{
+      display:flex;
+      flex-direction:column;
+      gap:16px;
+      align-items:center;
+    }
+    .photo-wrap{
+      width:180px;
+      height:180px;
+      border-radius:50%;
+      overflow:hidden;
+      background:linear-gradient(135deg,#e9eefc,#f7f9ff);
+      display:flex;
+      align-items:center;
+      justify-content:center;
+      border:6px solid rgba(11,118,239,0.08);
+    }
+    .photo-wrap img{
+      width:100%;
+      height:100%;
+      object-fit:cover;
+      display:block;
+    }
+    .change-photo{
+      width:100%;
+      text-align:center;
+      font-size:13px;
+      color:var(--muted);
+    }
+    .contact{
+      width:100%;
+      padding:12px;
+      border-radius:10px;
+      background:#fbfdff;
+      box-shadow:inset 0 1px 0 rgba(0,0,0,0.02);
+    }
+    .contact p{ margin:6px 0; font-size:14px; color:var(--muted); }
+    /* right column */
+    .right h1{
+      margin:0 0 6px 0;
+      font-size:28px;
+      letter-spacing:-0.3px;
+    }
+    .right p.lead{
+      margin:0 0 16px 0;
+      color:var(--muted);
+    }
+    .section{
+      margin-bottom:14px;
+    }
+    .section h3{
+      margin:0 0 8px 0;
+      font-size:16px;
+      color:var(--accent);
+    }
+    .job{
+      margin-bottom:10px;
+    }
+    .job .title{ font-weight:600; }
+    .job .meta{ font-size:13px; color:var(--muted); }
+    /* file input (hidden) and button */
+    #photoInput{ display:none; }
+    .btn{
+      display:inline-block;
+      padding:8px 12px;
+      background:var(--accent);
+      color:white;
+      border-radius:8px;
+      font-size:13px;
+      text-decoration:none;
+      cursor:pointer;
+      border:none;
+    }
+    /* responsive */
+    @media (max-width:760px){
+      .card{ grid-template-columns: 1fr; padding:18px; gap:16px; }
+      .left{ flex-direction:row; align-items:center; justify-content:space-between; }
+      .photo-wrap{ width:110px; height:110px; }
+    }
+  </style>
+</head>
+<body>
+
+  <main class="card" role="main" aria-label="Profile/resume card">
+    <section class="left" aria-label="Photo and contact">
+      <div class="photo-wrap" id="photoWrap" title="Profile photo">
+        <!-- Replace the src with your photo file name (profile.jpg) OR use the Upload button below -->
+        <img id="profilePhoto" src="placeholder-profile.png" alt="Profile photo">
+      </div>
+
+      <div style="width:100%; text-align:center;">
+        <div class="change-photo">
+          <label for="photoInput" class="btn" title="Upload a new profile photo">Upload Photo</label>
+          <input id="photoInput" type="file" accept="image/*" aria-label="Upload profile photo">
+          <div style="margin-top:8px; font-size:13px; color:var(--muted)">Or replace <code>src</code> with your image file</div>
+        </div>
+        <div class="contact" style="margin-top:12px;">
+          <p><strong>Location</strong><br/>City, Country</p>
+          <p><strong>Email</strong><br/>dharshini@example.com</p>
+          <p><strong>Phone</strong><br/>+91 98765 43210</p>
+        </div>
+      </div>
+    </section>
+
+    <section class="right" aria-label="Profile information">
+      <h1>dharshini
+        
+        
+        
+           
+        </h1>
+      <p class="lead">Frontend developer • UI/UX enthusiast • Building accessible, beautiful interfaces</p>
+
+      <div class="section">
+        <h3>Summary</h3>
+        <p style="margin:0; color:var(--muted)">Product-minded developer with X years building web apps. Skilled in HTML, CSS, JavaScript, React and responsive design.</p>
+      </div>
+
+      <div class="section">
+        <h3>Experience</h3>
+        <div class="job">
+          <div class="title">Frontend Developer — <span class="meta">Company ABC (2022–Present)</span></div>
+          <div class="meta">Worked on responsive dashboard and component library.</div>
+        </div>
+        <div class="job">
+          <div class="title">Web Developer — <span class="meta">Company XYZ (2020–2022)</span></div>
+          <div class="meta">Built marketing sites, optimized performance and accessibility.</div>
+        </div>
+      </div>
+
+      <div class="section">
+        <h3>Skills</h3>
+        <p style="margin:0; color:var(--muted)">HTML • CSS • JavaScript • React • Tailwind • Accessibility</p>
+      </div>
+    </section>
+  </main>
+
+  <script>
+    // Preview uploaded photo
+    const input = document.getElementById('photoInput');
+    const img = document.getElementById('profilePhoto');
+    const wrap = document.getElementById('photoWrap');
+
+    input.addEventListener('change', e => {
+      const file = e.target.files && e.target.files[0];
+      if(!file) return;
+      if(!file.type.startsWith('image/')) {
+        alert('Please choose an image file.');
+        return;
+      }
+      const reader = new FileReader();
+      reader.onload = () => {
+        img.src = reader.result;
+      };
+      reader.readAsDataURL(file);
+    });
+
+    // Optional: click photo to open file dialog
+    wrap.addEventListener('click', () => input.click());
+  </script>
+</body>
+</html>
